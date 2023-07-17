@@ -39,6 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
 
+  // This will always encrypt the password given by user before creating the user in database
+  // This is called hook
   User.beforeCreate((user) => {
     const encryptedPassword = bcrypt.hashSync(user.password, SALT);
     user.password = encryptedPassword;

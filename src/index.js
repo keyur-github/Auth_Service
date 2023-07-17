@@ -7,6 +7,7 @@ const apiRoutes = require('./routes/index');
 
 // const { User } = require('./models/index');
 // const bcrypt = require('bcrypt');
+// const UserRepository = require('./repository/user-repository');
 
 const app = express();
 const prepareAndStartServer = () => {
@@ -24,6 +25,10 @@ const prepareAndStartServer = () => {
         // const user = await User.findByPk(3);
         // const response = bcrypt.compareSync(incomingPass, user.password);
         // console.log(response);
+        // const userRepository = new UserRepository();
+        // const user = await userRepository.getById(3);
+        // console.log(user);
+
 
     });
 
