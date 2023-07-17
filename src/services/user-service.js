@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const UserRepository = require('../repository/user-repository');
 const { JWT_KEY } = require('../config/serverConfig');
 const bcrypt = require('bcrypt');
-const { use } = require('../routes');
 
 class UserService {
 
@@ -50,8 +49,28 @@ class UserService {
 
         } 
         catch (error) {
-            console.log("Something went wrong in the sign in process");
+            console.log("Something went wrong in the signin process");
             throw error;    
+        }
+    }
+
+    async isAuthenticated(token) {
+        try {
+            const response = await this.verifyToken(token);
+            if(!response) {
+                throw {error: "Invalid token"};
+            }
+
+            const user = await this.userRepository.getById(response.id);
+            if(!user) {
+                throw {error: "No user with the corresponding token exists"};
+            }
+
+            return user.id;
+        } 
+        catch (error) {
+            console.log("Something went wrong in the isAuthenticated process");
+            throw error;
         }
     }
 
